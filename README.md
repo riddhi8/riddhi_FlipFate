@@ -39,186 +39,50 @@
   - **Step 5 (Grand Jackpot)**: `30.00x 👑`
 - **Cash Out or Double Down**: Secure your pot at any step or risk it for the 30x jackpot.
 
-### 4. ⚖️ Provably Fair Cryptography
-- **Pre-commitment Hashing**: SHA-256 server seed hash is committed and displayed *before* placing any bet.
-- **Client Seed Freedom**: Players can customize their client seed at any time.
-- **Built-in Verification Calculator**: Paste past server seeds, client seeds, and nonces to mathematically verify outcomes on the spot.
+### 4. ⚔️ Fate Duel (PvP High Stakes)
+- Challenge rival players in real-time or simulate PvP duels with dynamic pots and winner-take-all mechanics.
 
-### 5. 🔊 Pure Web Audio API Sound Synthesizer
-- **Zero Asset Latency**: 100% synthesized sound effects generated in real-time in code (no external MP3/WAV files needed).
-- **Sound Effects**: Spinning coin whooshes, harmonic coin landings, celestial win arpeggios, streak level-up fanfares, and tactile UI clicks.
-- **One-Click Mute**: Instant audio toggle in the top navigation bar.
+### 5. 🛡️ Provably Fair Cryptographic Engine
+- Every flip outcome is cryptographically deterministic and verifiable using:
+  $$\text{Outcome} = \text{SHA-256}(\text{Server Seed} + \text{Client Seed} + \text{Nonce})$$
+- Live verification modal to verify past flips with zero trust required.
 
-### 6. 💼 Multi-Wallet & Faucet Integration
-- **Supported Wallets**: Freighter Browser Extension, Albedo Signer, and Built-in Instant Simulator.
-- **Testnet Faucet**: Instant `+500`, `+1,000`, or `+5,000` FLIP demo token refills.
+### 6. 👛 Stellar & Freighter Wallet Integration
+- Native Freighter browser wallet connection.
+- Testnet faucet claimer (100 FLIP airdrop) and local wallet balance fallback.
 
-### 7. 📊 Destiny Analytics & High-Rollers Leaderboard
-- **Performance Metrics**: Win rate percentage, total volume wagered, total payouts, net profit/loss.
-- **Solar vs Lunar Ratio**: Live distribution progress bar tracking coin face frequency.
-- **Global Leaderboard**: Highlights top streak holders and jackpot winners.
+### 7. 🔊 Web Audio Synthesizer
+- Procedural real-time Web Audio API sound effects for flips, metallic rings, wins, losses, and jackpot bursts with volume and mute toggles.
 
 ---
 
 ## 🚀 Getting Started (Localhost)
 
 ### Prerequisites
-- [Node.js](https://nodejs.org/) v18.0.0 or higher
-- [npm](https://www.npmjs.com/) v9.0.0 or higher
+- Node.js (v18+)
+- npm or yarn
 
-### 1. Installation
-
-Clone the repository and install dependencies:
-
+### Installation
 ```bash
-# Navigate to the client directory
-cd client
-
-# Install dependencies
 npm install
-```
-
-### 2. Run on Localhost
-
-Start the Next.js development server:
-
-```bash
 npm run dev
 ```
 
-Open your browser and navigate to:
-```
-http://localhost:3000
-```
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-### 3. Production Build
+---
 
-To verify and create a production build:
+## 📜 Smart Contract (Soroban)
+
+The smart contract is written in Rust using Soroban SDK and located in [`contract/`](contract/):
 
 ```bash
-npm run build
-npm run start
+cd contract
+cargo build --target wasm32-unknown-unknown --release
 ```
-
----
-
-## 📜 Smart Contract (Soroban / Rust)
-
-The Soroban smart contract is located under `contract/contracts/contract/src/lib.rs`.
-
-### Contract Functions:
-
-```rust
-// 1. Perform a provably fair coin flip wager
-pub fn flip(
-    env: Env, 
-    user: Address, 
-    choice: u32, 
-    bet_amount: i128, 
-    client_seed: u64
-) -> FlipRecord;
-
-// 2. Create an on-chain Fate Dilemma
-pub fn create_fate_dilemma(
-    env: Env,
-    user: Address,
-    title: String,
-    option_a: String,
-    option_b: String,
-    context: String,
-) -> u32;
-
-// 3. Resolve a Fate Dilemma with a cryptographic coin flip
-pub fn resolve_fate_dilemma(
-    env: Env,
-    user: Address,
-    dilemma_id: u32,
-    seed: u64,
-) -> FateDilemma;
-
-// 4. Retrieve user statistics
-pub fn get_user_stats(env: Env, user: Address) -> UserStats;
-
-// 5. Retrieve global platform statistics
-pub fn get_global_stats(env: Env) -> GlobalStats;
-```
-
-### Testing the Smart Contract
-
-To run the unit tests in Rust:
-
-```bash
-cd contract/contracts/contract
-cargo test
-```
-
----
-
-## 🔐 Provably Fair Algorithm
-
-FlipFate calculates all outcomes deterministically using SHA-256 HMAC-style hashing:
-
-$$\text{Combined String} = \text{ServerSeed} + \text{":"} + \text{ClientSeed} + \text{":"} + \text{Nonce}$$
-$$\text{Hash} = \text{SHA-256}(\text{Combined String})$$
-$$\text{Outcome} = \begin{cases} \text{SOLAR (0)}, & \text{if } \text{hex\_to\_int}(\text{Hash}[0..8]) \pmod 2 = 0 \\ \text{LUNAR (1)}, & \text{if } \text{hex\_to\_int}(\text{Hash}[0..8]) \pmod 2 = 1 \end{cases}$$
-
-Before every flip, the client is shown $\text{SHA-256}(\text{ServerSeed})$. Once the flip completes, the unhashed $\text{ServerSeed}$ is revealed, proving the game did not manipulate the outcome.
-
----
-
-## 🏗️ Project Structure
-
-```text
-FlipFate/
-├── client/                     # Next.js 16 + React 19 Frontend
-│   ├── src/
-│   │   ├── app/
-│   │   │   ├── globals.css     # 3D transforms, animations, theme tokens
-│   │   │   ├── layout.tsx      # Root HTML metadata and dark mode layout
-│   │   │   └── page.tsx        # Master FlipFate dApp orchestrator
-│   │   ├── components/
-│   │   │   ├── ClassicFlip.tsx # Classic wager coin flip module
-│   │   │   ├── Coin3D.tsx      # 3D realistic spinning coin component
-│   │   │   ├── FateOracle.tsx  # Oracle decision dilemma creator & chronicle
-│   │   │   ├── Navbar.tsx      # Sticky header, mode tabs, audio, wallet
-│   │   │   ├── ProvablyFairModal.tsx # Seed inspector & verifier tool
-│   │   │   ├── RecentFlipsTicker.tsx # Live activity feed ticker
-│   │   │   ├── StatsDrawer.tsx # Performance analytics & leaderboard
-│   │   │   ├── StreakArena.tsx # 30x multi-tier streak survival game
-│   │   │   └── WalletModal.tsx # Freighter / Albedo / Testnet wallet
-│   │   └── lib/
-│   │       ├── provablyFair.ts # SHA-256 cryptographic verification engine
-│   │       ├── sounds.ts       # Web Audio API sound synthesizer
-│   │       └── types.ts        # TypeScript interfaces and data models
-│   ├── package.json
-│   └── tsconfig.json
-│
-├── contract/                   # Soroban Smart Contract (Rust)
-│   ├── contracts/
-│   │   └── contract/
-│   │       ├── src/
-│   │       │   ├── lib.rs      # FlipFate Soroban Contract implementation
-│   │       │   └── test.rs     # Comprehensive smart contract tests
-│   │       └── Cargo.toml
-│   └── Cargo.toml
-│
-└── README.md                   # Project documentation
-```
-
----
-
-## 🛠️ Tech Stack
-
-- **Frontend**: Next.js 16 (App Router), React 19, TypeScript
-- **Styling**: Tailwind CSS 4, Glassmorphism, 3D CSS Perspective Transforms
-- **Audio Engine**: Web Audio API (Programmatic synthesis)
-- **Cryptography**: Web Crypto API (SubtleCrypto SHA-256)
-- **Visual FX**: Canvas Confetti, Glowing SVG Vectors
-- **Icons**: Lucide React
-- **Smart Contract**: Stellar Soroban SDK (Rust)
 
 ---
 
 ## 📄 License
+MIT License. Built for the Stellar Soroban Ecosystem.
 
-This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.

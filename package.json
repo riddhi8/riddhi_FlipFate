@@ -1,24 +1,40 @@
 {
-  "name": "flipfate-root",
-  "version": "1.0.0",
-  "description": "FlipFate — Decentralized Web3 Coin Flip & Fate Oracle on Stellar Soroban",
+  "name": "flipfate",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "npm --prefix client run dev",
-    "build": "npm --prefix client install && npm --prefix client run build",
-    "start": "npm --prefix client run start",
-    "lint": "npm --prefix client run lint"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint"
   },
-  "keywords": [
-    "stellar",
-    "soroban",
-    "web3",
-    "coin-flip",
-    "provably-fair",
-    "oracle",
-    "nextjs",
-    "react"
+  "dependencies": {
+    "@stellar/freighter-api": "^6.0.1",
+    "canvas-confetti": "^1.9.4",
+    "clsx": "^2.1.1",
+    "lucide-react": "^1.33.0",
+    "next": "16.2.6",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "tailwind-merge": "^3.6.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/canvas-confetti": "^1.9.0",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.6",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  },
+  "ignoreScripts": [
+    "sharp",
+    "unrs-resolver"
   ],
-  "author": "FlipFate Team",
-  "license": "MIT"
+  "trustedDependencies": [
+    "sharp",
+    "unrs-resolver"
+  ]
 }
