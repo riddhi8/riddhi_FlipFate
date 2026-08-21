@@ -1,26 +1,24 @@
 {
-  "name": "bun-react-template",
-  "version": "0.1.0",
+  "name": "flipfate-root",
+  "version": "1.0.0",
+  "description": "FlipFate — Decentralized Web3 Coin Flip & Fate Oracle on Stellar Soroban",
   "private": true,
-  "type": "module",
   "scripts": {
-    "dev": "bun --hot src/index.ts",
-    "start": "NODE_ENV=production bun src/index.ts",
-    "build": "bun run build.ts"
+    "dev": "npm --prefix client run dev",
+    "build": "npm --prefix client run build",
+    "start": "npm --prefix client run start",
+    "lint": "npm --prefix client run lint"
   },
-  "dependencies": {
-    "bun-plugin-tailwind": "^0.1.2",
-    "react": "^19",
-    "react-dom": "^19",
-    "tailwindcss": "^4.1.11"
-  },
-  "devDependencies": {
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "@types/bun": "latest"
-  },
-  "module": "src/index.ts",
-  "peerDependencies": {
-    "typescript": "^5"
-  }
+  "keywords": [
+    "stellar",
+    "soroban",
+    "web3",
+    "coin-flip",
+    "provably-fair",
+    "oracle",
+    "nextjs",
+    "react"
+  ],
+  "author": "FlipFate Team",
+  "license": "MIT"
 }
